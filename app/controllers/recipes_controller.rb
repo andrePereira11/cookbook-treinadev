@@ -27,8 +27,13 @@ class RecipesController < ApplicationController
 
   def update
     @recipe = Recipe.find(params[:id])
-    @recipe.update(recipe_params)
-    redirect_to @recipe
+    
+    if @recipe.update(recipe_params)
+      redirect_to @recipe
+    else
+      flash[:alert] = 'Você deve informar todos os dados da receita'
+      render :edit
+    end
   end
 
   private
