@@ -17,4 +17,19 @@ feature 'Admin register recipe_type' do
 
     expect(page).to have_content('Você deve informar o nome do tipo de receita')
   end
+
+  pending scenario 'Have no recipe_type with the same name' do
+    visit root_path
+    click_on 'Cadastrar tipo de receita'
+    fill_in 'Nome', with: 'Sobremesa'
+    click_on 'Enviar'
+
+    visit root_path
+    click_on 'Cadastrar tipo de receita'
+    fill_in 'Nome', with: 'Sobremesa'
+    click_on 'Enviar'
+
+    expect(page).to have_content('Esse tipo de receita ja existe')
+    
+  end
 end

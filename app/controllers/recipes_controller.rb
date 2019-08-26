@@ -1,8 +1,8 @@
 class RecipesController < ApplicationController
   def index
-    @recipes = Recipe.all
     @recipe_types = RecipeType.all
     @cuisines = Cuisine.all
+    @recipes = Recipe.all
   end
 
   def show
@@ -45,6 +45,11 @@ class RecipesController < ApplicationController
       @cuisines = Cuisine.all
       render :edit
     end
+  end
+
+  def search
+    @recipes = Recipe.where("title LIKE '%#{params[:recipe]}%'")
+    flash[:alert] = 'Não foi encontrado nenhum resultado' if @recipes == []
   end
 
   private
